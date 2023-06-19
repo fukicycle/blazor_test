@@ -17,6 +17,7 @@ jobs:
         # Generate the website
         - name: Publish
           run: dotnet publish -c Release
+               cp -a BlazorWASMOnGithub/bin/Release/net7.0/publish/wwwroot/index.html BlazorWASMOnGithub/bin/Release/net7.0/publish/wwwroot/404.html
 
         # Publish the website
         - name: GitHub Pages action
