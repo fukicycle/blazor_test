@@ -20,7 +20,6 @@ jobs:
 
         # Publish the website
         - name: GitHub Pages action
-          if: ${{ github.ref == 'refs/heads/master' }} #masterにpushされたときのみ実行
           uses: peaceiris/actions-gh-pages@v3.6.1
           with:
             github_token: ${{ secrets.TOKEN }} #Secretに登録したTokenを設定
