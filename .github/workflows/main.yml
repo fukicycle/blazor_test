@@ -1,0 +1,31 @@
+name: 'Publish BlazorApp'
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        # Checkout the code
+        - uses: actions/checkout@v3
+
+        # Install .NET Core SDK
+        - name: Setup .NET Core
+          uses: actions/setup-dotnet@v3
+          with:
+            dotnet-version: 7.0.*
+
+        # Generate the website
+        - name: Publish
+          run: dotnet publish -c Release
+
+        # Publish the website
+        - name: GitHub Pages action
+          if: ${{ github.ref == 'refs/heads/master' }} #masterにpushされたときのみ実行
+          uses: peaceiris/actions-gh-pages@v3.6.1
+          with:
+            github_token: ${{ secrets.TOKEN }} #Secretに登録したTokenを設定
+            publish_branch: gh-pages
+            publish_dir: bin/Release/net7.0/publish/wwwroot
+            allow_empty_commit: false
+            keep_files: false
+            force_orphan: true
